@@ -1,0 +1,285 @@
+{% extends 'layouts/base.html' %}
+
+{% block title %}User Management - FixMyCampus Admin{% endblock %}
+
+{% block content %}
+<div class="flex items-center justify-between mb-8">
+    <h1 class="text-3xl font-bold text-gray-800">
+        <i class="fas fa-users text-secondary-600 mr-3"></i> User Management
+    </h1>
+    
+    <div class="flex items-center space-x-4">
+        <a href="{{ url_for('admin_dashboard') }}" class="px-4 py-2 bg-gray-600 text-white rounded-md hover:bg-gray-700 transition-colors flex items-center">
+            <i class="fas fa-arrow-left mr-2"></i> Back to Dashboard
+        </a>
+    </div>
+</div>
+
+<!-- Admin Navigation -->
+<div class="bg-white rounded-xl shadow-lg p-4 mb-8">
+    <div class="flex flex-wrap gap-4">
+        <a href="{{ url_for('admin_dashboard') }}" class="px-4 py-2 bg-gray-100 text-gray-700 rounded-md hover:bg-gray-200 transition-colors flex items-center">
+            <i class="fas fa-home mr-2"></i> Dashboard
+        </a>
+        <a href="{{ url_for('admin_manage_issues') }}" class="px-4 py-2 bg-gray-100 text-gray-700 rounded-md hover:bg-gray-200 transition-colors flex items-center">
+            <i class="fas fa-tasks mr-2"></i> Manage Issues
+        </a>
+        <a href="{{ url_for('admin_user_management') }}" class="px-4 py-2 bg-secondary-600 text-white rounded-md hover:bg-secondary-700 transition-colors flex items-center">
+            <i class="fas fa-users mr-2"></i> User Management
+        </a>
+        <a href="{{ url_for('admin_audit_logs') }}" class="px-4 py-2 bg-gray-100 text-gray-700 rounded-md hover:bg-gray-200 transition-colors flex items-center">
+            <i class="fas fa-history mr-2"></i> Audit Logs
+        </a>
+    </div>
+</div>
+
+<!-- Search & Filter -->
+<div class="bg-white rounded-xl shadow-lg p-6 mb-8 animate-fadeIn">
+    <h2 class="text-xl font-semibold text-gray-800 mb-6">
+        <i class="fas fa-search text-secondary-600 mr-2"></i> Search Users
+    </h2>
+    
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div>
+            <label for="name-search" class="block text-sm font-medium text-gray-700 mb-1">Search by Name</label>
+            <input type="text" id="name-search" class="block w-full rounded-md border-gray-300 shadow-sm focus:border-secondary-500 focus:ring focus:ring-secondary-500 focus:ring-opacity-50" placeholder="Enter name">
+        </div>
+        
+        <div>
+            <label for="email-search" class="block text-sm font-medium text-gray-700 mb-1">Search by Email</label>
+            <input type="text" id="email-search" class="block w-full rounded-md border-gray-300 shadow-sm focus:border-secondary-500 focus:ring focus:ring-secondary-500 focus:ring-opacity-50" placeholder="Enter email">
+        </div>
+        
+        <div>
+            <label for="status-filter" class="block text-sm font-medium text-gray-700 mb-1">Filter by Status</label>
+            <select id="status-filter" class="block w-full rounded-md border-gray-300 shadow-sm focus:border-secondary-500 focus:ring focus:ring-secondary-500 focus:ring-opacity-50">
+                <option value="all">All Users</option>
+                <option value="active">Active</option>
+                <option value="banned">Banned</option>
+            </select>
+        </div>
+    </div>
+</div>
+
+<!-- Users Table -->
+<div class="bg-white rounded-xl shadow-lg overflow-hidden animate-fadeIn">
+    <div class="px-6 py-4 bg-secondary-50 border-b">
+        <h2 class="text-lg font-semibold text-gray-800">
+            <i class="fas fa-user-circle text-secondary-600 mr-2"></i> Registered Users
+        </h2>
+        <p class="text-sm text-gray-500">Showing {{ users|length }} users</p>
+    </div>
+    
+    <div class="overflow-x-auto">
+        <table class="min-w-full divide-y divide-gray-200">
+            <thead class="bg-gray-50">
+                <tr>
+                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Full Name</th>
+                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Roll No</th>
+                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Email</th>
+                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Mobile</th>
+                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                </tr>
+            </thead>
+            <tbody class="bg-white divide-y divide-gray-200" id="users-table-body">
+                {% for user in users %}
+                    <tr class="hover:bg-gray-50 transition-colors user-row" 
+                        data-name="{{ user.first_name }} {{ user.last_name }}" 
+                        data-email="{{ user.email }}"
+                        data-status="{{ 'banned' if user.is_banned else 'active' }}">
+                        <td class="px-6 py-4 whitespace-nowrap">
+                            <div class="flex items-center">
+                                <div class="flex-shrink-0 h-10 w-10 rounded-full bg-secondary-100 flex items-center justify-center text-secondary-600">
+                                    {{ user.first_name[0] }}{{ user.last_name[0] }}
+                                </div>
+                                <div class="ml-4">
+                                    <div class="text-sm font-medium text-gray-900">{{ user.first_name }} {{ user.last_name }}</div>
+                                    <div class="text-sm text-gray-500">{{ user.gender }}</div>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ user.roll_no }}</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ user.email }}</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ user.mob_num }}</td>
+                        <td class="px-6 py-4 whitespace-nowrap">
+                            {% if user.is_banned %}
+                                <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">
+                                    Banned
+                                </span>
+                            {% else %}
+                                <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
+                                    Active
+                                </span>
+                            {% endif %}
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                            <button type="button" 
+                                    data-user-roll="{{ user.roll_no }}"
+                                    data-user-name="{{ user.first_name }} {{ user.last_name }}"
+                                    data-user-email="{{ user.email }}"
+                                    data-user-mobile="{{ user.mob_num }}"
+                                    data-user-gender="{{ user.gender }}"
+                                    data-user-banned="{{ user.is_banned }}"
+                                    class="view-user-btn text-secondary-600 hover:text-secondary-900 mr-3">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                            
+                            {% if user.is_banned %}
+                                <form action="{{ url_for('admin_unban_user', roll_no=user.roll_no) }}" method="POST" class="inline">
+                                    <button type="submit" class="text-green-600 hover:text-green-900">
+                                        <i class="fas fa-user-check"></i>
+                                    </button>
+                                </form>
+                            {% else %}
+                                <form action="{{ url_for('admin_ban_user', roll_no=user.roll_no) }}" method="POST" class="inline">
+                                    <button type="submit" class="text-red-600 hover:text-red-900">
+                                        <i class="fas fa-user-slash"></i>
+                                    </button>
+                                </form>
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    
+    {% if not users %}
+        <div class="p-8 text-center">
+            <p class="text-gray-500">No users found.</p>
+        </div>
+    {% endif %}
+</div>
+
+<!-- View User Modal -->
+<div id="view-user-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+    <div class="bg-white rounded-xl shadow-2xl p-6 w-full max-w-2xl max-h-screen overflow-y-auto">
+        <div class="flex justify-between items-center mb-6">
+            <h3 class="text-2xl font-bold text-gray-800" id="view-user-name">
+                <i class="fas fa-user-circle text-secondary-600 mr-2"></i> User Details
+            </h3>
+            <button id="close-user-modal" class="text-gray-400 hover:text-gray-600">
+                <i class="fas fa-times text-xl"></i>
+            </button>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+                <h4 class="text-sm font-medium text-gray-500">Roll Number</h4>
+                <p id="view-user-roll" class="text-lg font-medium">123456</p>
+            </div>
+            
+            <div>
+                <h4 class="text-sm font-medium text-gray-500">Email</h4>
+                <p id="view-user-email" class="text-lg font-medium">user@example.com</p>
+            </div>
+            
+            <div>
+                <h4 class="text-sm font-medium text-gray-500">Mobile</h4>
+                <p id="view-user-mobile" class="text-lg font-medium">9876543210</p>
+            </div>
+            
+            <div>
+                <h4 class="text-sm font-medium text-gray-500">Gender</h4>
+                <p id="view-user-gender" class="text-lg font-medium">Male</p>
+            </div>
+            
+            <div class="md:col-span-2">
+                <h4 class="text-sm font-medium text-gray-500">Status</h4>
+                <p id="view-user-status" class="text-lg font-medium"></p>
+            </div>
+        </div>
+        
+        <div class="mt-8 flex justify-end">
+            <button id="close-user-btn" class="px-4 py-2 bg-gray-200 text-gray-800 rounded-md hover:bg-gray-300 transition-colors">
+                Close
+            </button>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // View User Modal
+        const viewUserModal = document.getElementById('view-user-modal');
+        const viewUserButtons = document.querySelectorAll('.view-user-btn');
+        const closeUserModal = document.getElementById('close-user-modal');
+        const closeUserBtn = document.getElementById('close-user-btn');
+        
+        // View User functionality
+        viewUserButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const userName = this.getAttribute('data-user-name');
+                const userRoll = this.getAttribute('data-user-roll');
+                const userEmail = this.getAttribute('data-user-email');
+                const userMobile = this.getAttribute('data-user-mobile');
+                const userGender = this.getAttribute('data-user-gender');
+                const userBanned = this.getAttribute('data-user-banned') === 'True';
+                
+                document.getElementById('view-user-name').textContent = userName;
+                document.getElementById('view-user-roll').textContent = userRoll;
+                document.getElementById('view-user-email').textContent = userEmail;
+                document.getElementById('view-user-mobile').textContent = userMobile;
+                document.getElementById('view-user-gender').textContent = userGender;
+                
+                // Status with color
+                const statusElem = document.getElementById('view-user-status');
+                if (userBanned) {
+                    statusElem.textContent = 'Banned';
+                    statusElem.className = 'text-lg font-medium text-red-600';
+                } else {
+                    statusElem.textContent = 'Active';
+                    statusElem.className = 'text-lg font-medium text-green-600';
+                }
+                
+                viewUserModal.classList.remove('hidden');
+            });
+        });
+        
+        closeUserModal.addEventListener('click', () => viewUserModal.classList.add('hidden'));
+        closeUserBtn.addEventListener('click', () => viewUserModal.classList.add('hidden'));
+        
+        // Search & Filter functionality
+        const nameSearch = document.getElementById('name-search');
+        const emailSearch = document.getElementById('email-search');
+        const statusFilter = document.getElementById('status-filter');
+        const userRows = document.querySelectorAll('.user-row');
+        
+        function filterUsers() {
+            const nameQuery = nameSearch.value.toLowerCase();
+            const emailQuery = emailSearch.value.toLowerCase();
+            const statusQuery = statusFilter.value;
+            
+            userRows.forEach(row => {
+                const name = row.getAttribute('data-name').toLowerCase();
+                const email = row.getAttribute('data-email').toLowerCase();
+                const status = row.getAttribute('data-status');
+                
+                const nameMatch = name.includes(nameQuery);
+                const emailMatch = email.includes(emailQuery);
+                const statusMatch = statusQuery === 'all' || status === statusQuery;
+                
+                if (nameMatch && emailMatch && statusMatch) {
+                    row.style.display = '';
+                } else {
+                    row.style.display = 'none';
+                }
+            });
+        }
+        
+        nameSearch.addEventListener('input', filterUsers);
+        emailSearch.addEventListener('input', filterUsers);
+        statusFilter.addEventListener('change', filterUsers);
+        
+        // Close modal when clicking outside
+        window.addEventListener('click', function(e) {
+            if (e.target === viewUserModal) {
+                viewUserModal.classList.add('hidden');
+            }
+        });
+    });
+</script>
+{% endblock %}

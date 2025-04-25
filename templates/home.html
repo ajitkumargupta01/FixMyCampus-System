@@ -1,0 +1,160 @@
+{% extends 'layouts/base.html' %}
+
+{% block title %}Home - FixMyCampus{% endblock %}
+
+{% block content %}
+<div class="hero-gradient rounded-2xl py-16 px-8 text-center text-white shadow-2xl animate-fadeIn">
+    <h1 class="text-4xl md:text-5xl font-extrabold mb-4">Welcome, {{ session.username }}! 🎓</h1>
+    <p class="text-xl md:text-2xl opacity-90 max-w-3xl mx-auto">
+        You're on FixMyCampus – report, track, and resolve campus issues effortlessly.
+    </p>
+</div>
+
+<div class="mt-16 grid grid-cols-1 md:grid-cols-3 gap-8">
+    <!-- Quick Actions Card -->
+    <div class="bg-white p-8 rounded-xl shadow-lg card-hover border-t-4 border-primary-500">
+        <h3 class="text-2xl font-bold text-gray-800 mb-6">
+            <i class="fas fa-bolt text-primary-500 mr-3"></i> Quick Actions
+        </h3>
+        <div class="space-y-4">
+            <a href="{{ url_for('report_issue') }}" class="block py-3 px-4 rounded-lg bg-primary-50 hover:bg-primary-100 text-primary-700 font-medium transition-colors">
+                <i class="fas fa-edit mr-2"></i> Report a New Issue
+            </a>
+            <a href="{{ url_for('my_issues') }}" class="block py-3 px-4 rounded-lg bg-secondary-50 hover:bg-secondary-100 text-secondary-700 font-medium transition-colors">
+                <i class="fas fa-list-alt mr-2"></i> View My Issues
+            </a>
+            <a href="{{ url_for('issue_dashboard') }}" class="block py-3 px-4 rounded-lg bg-accent-50 hover:bg-accent-100 text-accent-700 font-medium transition-colors">
+                <i class="fas fa-chart-bar mr-2"></i> Campus Issue Dashboard
+            </a>
+        </div>
+    </div>
+    
+    <!-- Campus Updates Card -->
+    <div class="bg-white p-8 rounded-xl shadow-lg card-hover border-t-4 border-secondary-500">
+        <h3 class="text-2xl font-bold text-gray-800 mb-6">
+            <i class="fas fa-bullhorn text-secondary-500 mr-3"></i> Campus Updates
+        </h3>
+        <div class="space-y-6">
+            <div class="bg-gray-50 p-4 rounded-lg">
+                <p class="text-sm text-gray-500">May 15, 2025</p>
+                <h4 class="font-semibold text-gray-800">New Water Coolers Installed</h4>
+                <p class="text-gray-600 mt-1">Three new water coolers have been installed in Block B following student requests.</p>
+            </div>
+            
+            <div class="bg-gray-50 p-4 rounded-lg">
+                <p class="text-sm text-gray-500">May 10, 2025</p>
+                <h4 class="font-semibold text-gray-800">WiFi Upgrade Complete</h4>
+                <p class="text-gray-600 mt-1">Campus-wide WiFi upgrade is now complete with improved speed and coverage.</p>
+            </div>
+            
+            <a href="#" class="inline-block text-secondary-600 hover:text-secondary-800 font-medium">
+                <i class="fas fa-arrow-right mr-1"></i> View All Updates
+            </a>
+        </div>
+    </div>
+    
+    <!-- Stats Card -->
+    <div class="bg-white p-8 rounded-xl shadow-lg card-hover border-t-4 border-accent-500">
+        <h3 class="text-2xl font-bold text-gray-800 mb-6">
+            <i class="fas fa-chart-pie text-accent-500 mr-3"></i> Issue Status
+        </h3>
+        
+        <div class="mb-6">
+            <div class="flex justify-between items-center mb-2">
+                <h4 class="font-medium text-gray-700">Pending</h4>
+                <span class="text-yellow-500 font-medium">24%</span>
+            </div>
+            <div class="w-full bg-gray-200 rounded-full h-2">
+                <div class="bg-yellow-500 h-2 rounded-full" style="width: 24%"></div>
+            </div>
+        </div>
+        
+        <div class="mb-6">
+            <div class="flex justify-between items-center mb-2">
+                <h4 class="font-medium text-gray-700">In Progress</h4>
+                <span class="text-blue-500 font-medium">38%</span>
+            </div>
+            <div class="w-full bg-gray-200 rounded-full h-2">
+                <div class="bg-blue-500 h-2 rounded-full" style="width: 38%"></div>
+            </div>
+        </div>
+        
+        <div class="mb-6">
+            <div class="flex justify-between items-center mb-2">
+                <h4 class="font-medium text-gray-700">Resolved</h4>
+                <span class="text-green-500 font-medium">58%</span>
+            </div>
+            <div class="w-full bg-gray-200 rounded-full h-2">
+                <div class="bg-green-500 h-2 rounded-full" style="width: 58%"></div>
+            </div>
+        </div>
+        
+        <a href="{{ url_for('issue_dashboard') }}" class="inline-block text-accent-600 hover:text-accent-800 font-medium">
+            <i class="fas fa-arrow-right mr-1"></i> Full Analytics
+        </a>
+    </div>
+</div>
+
+<!-- Recent Issues Section -->
+<div class="mt-16">
+    <h2 class="text-3xl font-bold text-gray-800 mb-8">
+        <i class="fas fa-clock text-gray-600 mr-3"></i> Recently Reported Issues
+    </h2>
+    
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition-shadow border-l-4 border-yellow-500">
+            <div class="flex justify-between">
+                <h3 class="font-bold text-xl text-gray-800">Internet Connectivity</h3>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-yellow-100 text-yellow-700">Pending</span>
+            </div>
+            <p class="mt-3 text-gray-600">Slow internet connection in Library second floor, affecting research work.</p>
+            <div class="mt-4 flex justify-between text-sm text-gray-500">
+                <span><i class="fas fa-map-marker-alt mr-1"></i> Library, 2nd Floor</span>
+                <span><i class="far fa-clock mr-1"></i> 2 hours ago</span>
+            </div>
+        </div>
+        
+        <div class="bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition-shadow border-l-4 border-blue-500">
+            <div class="flex justify-between">
+                <h3 class="font-bold text-xl text-gray-800">Water Cooler Issue</h3>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-blue-100 text-blue-700">In Progress</span>
+            </div>
+            <p class="mt-3 text-gray-600">Water cooler near CS lab is not cooling properly and needs maintenance.</p>
+            <div class="mt-4 flex justify-between text-sm text-gray-500">
+                <span><i class="fas fa-map-marker-alt mr-1"></i> CS Block, Ground Floor</span>
+                <span><i class="far fa-clock mr-1"></i> 1 day ago</span>
+            </div>
+        </div>
+        
+        <div class="bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition-shadow border-l-4 border-green-500">
+            <div class="flex justify-between">
+                <h3 class="font-bold text-xl text-gray-800">Classroom Projector</h3>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-green-100 text-green-700">Resolved</span>
+            </div>
+            <p class="mt-3 text-gray-600">Projector in Room 201 was not working correctly. Issue has been fixed now.</p>
+            <div class="mt-4 flex justify-between text-sm text-gray-500">
+                <span><i class="fas fa-map-marker-alt mr-1"></i> Room 201, Block A</span>
+                <span><i class="far fa-clock mr-1"></i> 2 days ago</span>
+            </div>
+        </div>
+        
+        <div class="bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition-shadow border-l-4 border-blue-500">
+            <div class="flex justify-between">
+                <h3 class="font-bold text-xl text-gray-800">Broken Furniture</h3>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-blue-100 text-blue-700">In Progress</span>
+            </div>
+            <p class="mt-3 text-gray-600">Several chairs in the auditorium have broken armrests and need repair.</p>
+            <div class="mt-4 flex justify-between text-sm text-gray-500">
+                <span><i class="fas fa-map-marker-alt mr-1"></i> Main Auditorium</span>
+                <span><i class="far fa-clock mr-1"></i> 3 days ago</span>
+            </div>
+        </div>
+    </div>
+    
+    <div class="mt-8 text-center">
+        <a href="{{ url_for('issue_dashboard') }}" class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-secondary-600 hover:bg-secondary-700 transition-colors">
+            <i class="fas fa-list-alt mr-2"></i> View All Campus Issues
+        </a>
+    </div>
+</div>
+{% endblock %}

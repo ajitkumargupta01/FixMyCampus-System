@@ -1,0 +1,5 @@
+Flask==2.3.3
+Flask-MySQLdb==1.0.1
+pandas==2.1.1
+plotly==5.18.0
+Werkzeug==2.3.7

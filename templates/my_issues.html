@@ -1,0 +1,200 @@
+{% extends 'layouts/base.html' %}
+
+{% block title %}My Issues - FixMyCampus{% endblock %}
+
+{% block content %}
+<h1 class="text-3xl font-bold text-gray-800 mb-8">
+    <i class="fas fa-list-alt text-secondary-600 mr-3"></i> My Reported Issues
+</h1>
+
+{% if not issues %}
+    <div class="bg-white p-8 rounded-xl shadow-lg text-center animate-fadeIn">
+        <div class="flex items-center justify-center w-20 h-20 mx-auto bg-blue-100 text-blue-600 rounded-full mb-6">
+            <i class="fas fa-clipboard-list text-3xl"></i>
+        </div>
+        <h2 class="text-2xl font-bold text-gray-800 mb-4">No Issues Reported Yet</h2>
+        <p class="text-gray-600 mb-6">You haven't reported any campus issues yet. When you do, they'll appear here for you to track.</p>
+        <a href="{{ url_for('report_issue') }}" class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-secondary-600 hover:bg-secondary-700 transition-colors">
+            <i class="fas fa-plus-circle mr-2"></i> Report a New Issue
+        </a>
+    </div>
+{% else %}
+    <div class="bg-white rounded-xl p-6 shadow-lg mb-8">
+        <div class="flex items-center justify-between mb-6">
+            <h2 class="text-xl font-semibold text-gray-800">
+                <i class="fas fa-filter text-secondary-500 mr-2"></i> Filter Options
+            </h2>
+            <a href="{{ url_for('report_issue') }}" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-secondary-600 hover:bg-secondary-700 transition-colors">
+                <i class="fas fa-plus-circle mr-2"></i> Report New Issue
+            </a>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+            <div>
+                <label for="filter-status" class="block text-sm font-medium text-gray-700 mb-1">Status</label>
+                <select id="filter-status" class="block w-full rounded-md border-gray-300 shadow-sm focus:border-secondary-500 focus:ring focus:ring-secondary-500 focus:ring-opacity-50">
+                    <option value="all">All Status</option>
+                    <option value="Pending">Pending</option>
+                    <option value="In Progress">In Progress</option>
+                    <option value="Resolved">Resolved</option>
+                </select>
+            </div>
+            
+            <div>
+                <label for="filter-category" class="block text-sm font-medium text-gray-700 mb-1">Category</label>
+                <select id="filter-category" class="block w-full rounded-md border-gray-300 shadow-sm focus:border-secondary-500 focus:ring focus:ring-secondary-500 focus:ring-opacity-50">
+                    <option value="all">All Categories</option>
+                    <option value="Electricity">Electricity</option>
+                    <option value="Water Supply">Water Supply</option>
+                    <option value="Internet">Internet</option>
+                    <option value="Furniture">Furniture</option>
+                    <option value="Cleanliness">Cleanliness</option>
+                    <option value="Bus">Bus</option>
+                    <option value="Other">Other</option>
+                </select>
+            </div>
+            
+            <div>
+                <label for="sort-by" class="block text-sm font-medium text-gray-700 mb-1">Sort By</label>
+                <select id="sort-by" class="block w-full rounded-md border-gray-300 shadow-sm focus:border-secondary-500 focus:ring focus:ring-secondary-500 focus:ring-opacity-50">
+                    <option value="newest">Newest First</option>
+                    <option value="oldest">Oldest First</option>
+                </select>
+            </div>
+            
+            <div class="flex items-end">
+                <button id="reset-filters" class="inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 transition-colors w-full justify-center">
+                    <i class="fas fa-redo-alt mr-2"></i> Reset Filters
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <div class="space-y-6 issue-list">
+        {% for issue in issues %}
+            {% set status_color = 'yellow' if issue.status == 'Pending' else ('blue' if issue.status == 'In Progress' else 'green') %}
+            {% set status_bg = 'bg-yellow-50' if issue.status == 'Pending' else ('bg-blue-50' if issue.status == 'In Progress' else 'bg-green-50') %}
+            {% set status_text = 'text-yellow-800' if issue.status == 'Pending' else ('text-blue-800' if issue.status == 'In Progress' else 'text-green-800') %}
+            {% set status_border = 'border-yellow-500' if issue.status == 'Pending' else ('border-blue-500' if issue.status == 'In Progress' else 'border-green-500') %}
+            
+            <div class="bg-white rounded-xl shadow-md hover:shadow-lg transition-shadow p-6 border-l-4 {{ status_border }} animate-fadeIn issue-item" 
+                 data-status="{{ issue.status }}" 
+                 data-category="{{ issue.issue_type }}" 
+                 data-date="{{ issue.date_reported }}">
+                <div class="flex flex-col md:flex-row md:items-center justify-between mb-4">
+                    <div>
+                        <span class="px-3 py-1 {{ status_bg }} {{ status_text }} text-xs font-semibold rounded-full">
+                            {{ issue.status }}
+                        </span>
+                        <span class="ml-2 text-gray-500 text-sm">
+                            <i class="far fa-clock mr-1"></i> {{ issue.date_reported }}
+                        </span>
+                    </div>
+                    <div class="mt-2 md:mt-0">
+                        <span class="px-3 py-1 bg-gray-100 text-gray-800 text-xs font-medium rounded-full">
+                            ID: #{{ issue.issue_id }}
+                        </span>
+                    </div>
+                </div>
+                
+                <h3 class="text-xl font-bold text-gray-800 mb-2">{{ issue.issue_type }}</h3>
+                
+                <p class="text-gray-600 mb-4">{{ issue.description }}</p>
+                
+                <div class="flex items-center text-gray-500 text-sm">
+                    <i class="fas fa-map-marker-alt mr-1"></i>
+                    <span>{{ issue.location }}</span>
+                </div>
+                
+                <div class="mt-4 pt-4 border-t border-gray-100">
+                    <div class="flex flex-col md:flex-row md:items-center justify-between">
+                        <div class="text-sm text-gray-500 mb-2 md:mb-0">
+                            {% if issue.status == 'Pending' %}
+                                <span><i class="fas fa-hourglass-start text-yellow-500 mr-1"></i> Awaiting review</span>
+                            {% elif issue.status == 'In Progress' %}
+                                <span><i class="fas fa-tools text-blue-500 mr-1"></i> Currently being addressed</span>
+                            {% else %}
+                                <span><i class="fas fa-check-circle text-green-500 mr-1"></i> Issue has been resolved</span>
+                            {% endif %}
+                        </div>
+                        
+                        <button class="inline-flex items-center px-3 py-1 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 transition-colors">
+                            <i class="fas fa-comments mr-1"></i> Add Comment
+                        </button>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endif %}
+{% endblock %}
+
+{% block scripts %}
+{% if issues %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const statusFilter = document.getElementById('filter-status');
+        const categoryFilter = document.getElementById('filter-category');
+        const sortBy = document.getElementById('sort-by');
+        const resetButton = document.getElementById('reset-filters');
+        const issueItems = document.querySelectorAll('.issue-item');
+        
+        function applyFilters() {
+            const selectedStatus = statusFilter.value;
+            const selectedCategory = categoryFilter.value;
+            const selectedSort = sortBy.value;
+            
+            // Convert issue items to array for sorting
+            const issuesArray = Array.from(issueItems);
+            
+            // Sort issues
+            issuesArray.sort(function(a, b) {
+                const dateA = new Date(a.dataset.date);
+                const dateB = new Date(b.dataset.date);
+                
+                if (selectedSort === 'newest') {
+                    return dateB - dateA;
+                } else {
+                    return dateA - dateB;
+                }
+            });
+            
+            // Filter and display issues
+            issuesArray.forEach(function(item) {
+                const itemStatus = item.dataset.status;
+                const itemCategory = item.dataset.category;
+                
+                const statusMatch = selectedStatus === 'all' || itemStatus === selectedStatus;
+                const categoryMatch = selectedCategory === 'all' || itemCategory === selectedCategory;
+                
+                if (statusMatch && categoryMatch) {
+                    item.style.display = 'block';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+            
+            // Reattach sorted and filtered elements
+            const issueList = document.querySelector('.issue-list');
+            issuesArray.forEach(function(item) {
+                issueList.appendChild(item);
+            });
+        }
+        
+        statusFilter.addEventListener('change', applyFilters);
+        categoryFilter.addEventListener('change', applyFilters);
+        sortBy.addEventListener('change', applyFilters);
+        
+        resetButton.addEventListener('click', function() {
+            statusFilter.value = 'all';
+            categoryFilter.value = 'all';
+            sortBy.value = 'newest';
+            applyFilters();
+        });
+        
+        // Initial sort (newest first by default)
+        applyFilters();
+    });
+</script>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,124 @@
+{% extends 'layouts/base.html' %}
+
+{% block title %}Report Issue - FixMyCampus{% endblock %}
+
+{% block content %}
+<div class="max-w-4xl mx-auto">
+    <h1 class="text-3xl font-bold text-gray-800 mb-8">
+        <i class="fas fa-edit text-secondary-600 mr-3"></i> Report an Issue
+    </h1>
+    
+    <div class="bg-white rounded-xl shadow-lg p-8 animate-fadeIn">
+        <div class="mb-8 p-4 bg-blue-50 text-blue-800 rounded-lg">
+            <div class="flex">
+                <div class="flex-shrink-0">
+                    <i class="fas fa-info-circle text-blue-500 text-xl"></i>
+                </div>
+                <div class="ml-3">
+                    <h3 class="text-lg font-medium">Submit a New Campus Issue</h3>
+                    <p class="mt-1">Fill out the form below with details about the issue you've encountered on campus. Be as specific as possible to help maintenance staff locate and fix the problem efficiently.</p>
+                </div>
+            </div>
+        </div>
+        
+        <form method="POST" action="{{ url_for('report_issue') }}">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                <div>
+                    <label for="issue_type" class="block text-sm font-medium text-gray-700 mb-1">Issue Type <span class="text-red-500">*</span></label>
+                    <select name="issue_type" id="issue_type" class="block w-full rounded-md border-gray-300 shadow-sm focus:border-secondary-500 focus:ring focus:ring-secondary-500 focus:ring-opacity-50" required>
+                        <option value="">Select Issue Type</option>
+                        <option value="Electricity">Electricity</option>
+                        <option value="Water Supply">Water Supply</option>
+                        <option value="Internet">Internet</option>
+                        <option value="Furniture">Furniture</option>
+                        <option value="Cleanliness">Cleanliness</option>
+                        <option value="Bus">Bus</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+                
+                <div id="other_issue_container" class="hidden">
+                    <label for="custom_issue_type" class="block text-sm font-medium text-gray-700 mb-1">Specify Issue Type <span class="text-red-500">*</span></label>
+                    <input type="text" name="custom_issue_type" id="custom_issue_type" class="block w-full rounded-md border-gray-300 shadow-sm focus:border-secondary-500 focus:ring focus:ring-secondary-500 focus:ring-opacity-50" placeholder="e.g., Projector, AC, etc.">
+                </div>
+                
+                <div class="md:col-span-2">
+                    <label for="location" class="block text-sm font-medium text-gray-700 mb-1">Issue Location <span class="text-red-500">*</span></label>
+                    <input type="text" name="location" id="location" class="block w-full rounded-md border-gray-300 shadow-sm focus:border-secondary-500 focus:ring focus:ring-secondary-500 focus:ring-opacity-50" placeholder="e.g., Room 203, Block A" required>
+                    <p class="mt-1 text-sm text-gray-500">Please be as specific as possible with the location</p>
+                </div>
+                
+                <div class="md:col-span-2">
+                    <label for="description" class="block text-sm font-medium text-gray-700 mb-1">Issue Description <span class="text-red-500">*</span></label>
+                    <textarea name="description" id="description" rows="5" class="block w-full rounded-md border-gray-300 shadow-sm focus:border-secondary-500 focus:ring focus:ring-secondary-500 focus:ring-opacity-50" placeholder="Describe the issue in detail..." required></textarea>
+                    <p class="mt-1 text-sm text-gray-500">Include relevant details like when it started, how it's affecting you, etc.</p>
+                </div>
+            </div>
+            
+            <div class="flex items-center justify-between pt-4 border-t border-gray-200">
+                <button type="submit" class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-secondary-600 hover:bg-secondary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-secondary-500 transition-colors">
+                    <i class="fas fa-paper-plane mr-2"></i> Submit Issue
+                </button>
+                
+                <a href="{{ url_for('my_issues') }}" class="inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-secondary-500 transition-colors">
+                    <i class="fas fa-list-alt mr-2"></i> View My Issues
+                </a>
+            </div>
+        </form>
+    </div>
+    
+    <!-- Recently Reported Issues -->
+    <div class="mt-12">
+        <h2 class="text-2xl font-bold text-gray-800 mb-6">
+            <i class="fas fa-chart-line text-secondary-600 mr-3"></i> Common Issue Types
+        </h2>
+        
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow border-t-4 border-blue-500">
+                <div class="flex items-center justify-center w-12 h-12 rounded-full bg-blue-100 text-blue-600 mb-4 mx-auto">
+                    <i class="fas fa-bolt"></i>
+                </div>
+                <h3 class="text-lg font-semibold text-center mb-2">Electricity</h3>
+                <p class="text-sm text-gray-600 text-center">Problems with lights, power outlets, or electrical equipment</p>
+            </div>
+            
+            <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow border-t-4 border-teal-500">
+                <div class="flex items-center justify-center w-12 h-12 rounded-full bg-teal-100 text-teal-600 mb-4 mx-auto">
+                    <i class="fas fa-tint"></i>
+                </div>
+                <h3 class="text-lg font-semibold text-center mb-2">Water Supply</h3>
+                <p class="text-sm text-gray-600 text-center">Issues with water fountains, taps, or water quality</p>
+            </div>
+            
+            <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow border-t-4 border-purple-500">
+                <div class="flex items-center justify-center w-12 h-12 rounded-full bg-purple-100 text-purple-600 mb-4 mx-auto">
+                    <i class="fas fa-wifi"></i>
+                </div>
+                <h3 class="text-lg font-semibold text-center mb-2">Internet</h3>
+                <p class="text-sm text-gray-600 text-center">WiFi connectivity problems or network outages</p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const issueTypeSelect = document.getElementById('issue_type');
+        const otherIssueContainer = document.getElementById('other_issue_container');
+        const customIssueInput = document.getElementById('custom_issue_type');
+        
+        // Show/hide the custom issue type input based on selection
+        issueTypeSelect.addEventListener('change', function() {
+            if (this.value === 'Other') {
+                otherIssueContainer.classList.remove('hidden');
+                customIssueInput.setAttribute('required', 'required');
+            } else {
+                otherIssueContainer.classList.add('hidden');
+                customIssueInput.removeAttribute('required');
+            }
+        });
+    });
+</script>
+{% endblock %}

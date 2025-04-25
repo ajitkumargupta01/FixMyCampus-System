@@ -1,0 +1,81 @@
+<footer class="mt-16 py-8 bg-gray-800 text-white">
+    <div class="container mx-auto px-4">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div>
+                <h3 class="text-xl font-bold mb-4 flex items-center">
+                    <i class="fas fa-tools mr-2"></i> FixMyCampus
+                </h3>
+                <p class="text-gray-300">
+                    Your trusted platform for reporting and resolving campus issues efficiently. We aim to create a better campus experience for all students.
+                </p>
+            </div>
+            
+            <div>
+                <h3 class="text-xl font-bold mb-4">Quick Links</h3>
+                <ul class="space-y-2">
+                    <li>
+                        <a href="{{ url_for('home') if session.logged_in else url_for('index') }}" class="text-gray-300 hover:text-white transition-colors">
+                            <i class="fas fa-chevron-right text-xs mr-2"></i> Home
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ url_for('about_campus') }}" class="text-gray-300 hover:text-white transition-colors">
+                            <i class="fas fa-chevron-right text-xs mr-2"></i> Institute Info
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ url_for('report_issue') if session.logged_in else url_for('login') }}" class="text-gray-300 hover:text-white transition-colors">
+                            <i class="fas fa-chevron-right text-xs mr-2"></i> Report Issue
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ url_for('help_support') if session.logged_in else url_for('login') }}" class="text-gray-300 hover:text-white transition-colors">
+                            <i class="fas fa-chevron-right text-xs mr-2"></i> Help & Support
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ url_for('about') }}" class="text-gray-300 hover:text-white transition-colors">
+                            <i class="fas fa-chevron-right text-xs mr-2"></i> About
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            
+            <div>
+                <h3 class="text-xl font-bold mb-4">Contact</h3>
+                <ul class="space-y-2">
+                    <li class="flex items-start">
+                        <i class="fas fa-map-marker-alt mt-1 mr-2 text-secondary-400"></i>
+                        <span class="text-gray-300">NH-58, Baral Partapur Bypass Road, Meerut – 250103, Uttar Pradesh, India</span>
+                    </li>
+                    <li class="flex items-center">
+                        <i class="fas fa-phone mr-2 text-secondary-400"></i>
+                        <span class="text-gray-300">+91-9334455661</span>
+                    </li>
+                    <li class="flex items-center">
+                        <i class="fas fa-envelope mr-2 text-secondary-400"></i>
+                        <span class="text-gray-300">fixmycampus@mitmeerut.ac.in</span>
+                    </li>
+                </ul>
+                <div class="mt-4 flex space-x-4">
+                    <a href="#" class="text-gray-300 hover:text-white transition-colors">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+                    <a href="#" class="text-gray-300 hover:text-white transition-colors">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                    <a href="#" class="text-gray-300 hover:text-white transition-colors">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    <a href="#" class="text-gray-300 hover:text-white transition-colors">
+                        <i class="fab fa-linkedin-in"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="mt-8 pt-6 border-t border-gray-700 text-center text-gray-400">
+            <p>&copy; 2025 FixMyCampus | Meerut Institute of Technology</p>
+        </div>
+    </div>
+</footer>

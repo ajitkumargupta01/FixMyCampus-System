@@ -1,0 +1,197 @@
+{% extends 'layouts/base.html' %}
+
+{% block title %}Audit Logs - FixMyCampus Admin{% endblock %}
+
+{% block content %}
+<div class="flex items-center justify-between mb-8">
+    <h1 class="text-3xl font-bold text-gray-800">
+        <i class="fas fa-history text-secondary-600 mr-3"></i> Audit Logs
+    </h1>
+    
+    <div class="flex items-center space-x-4">
+        <a href="{{ url_for('admin_dashboard') }}" class="px-4 py-2 bg-gray-600 text-white rounded-md hover:bg-gray-700 transition-colors flex items-center">
+            <i class="fas fa-arrow-left mr-2"></i> Back to Dashboard
+        </a>
+    </div>
+</div>
+
+<!-- Admin Navigation -->
+<div class="bg-white rounded-xl shadow-lg p-4 mb-8">
+    <div class="flex flex-wrap gap-4">
+        <a href="{{ url_for('admin_dashboard') }}" class="px-4 py-2 bg-gray-100 text-gray-700 rounded-md hover:bg-gray-200 transition-colors flex items-center">
+            <i class="fas fa-home mr-2"></i> Dashboard
+        </a>
+        <a href="{{ url_for('admin_manage_issues') }}" class="px-4 py-2 bg-gray-100 text-gray-700 rounded-md hover:bg-gray-200 transition-colors flex items-center">
+            <i class="fas fa-tasks mr-2"></i> Manage Issues
+        </a>
+        <a href="{{ url_for('admin_user_management') }}" class="px-4 py-2 bg-gray-100 text-gray-700 rounded-md hover:bg-gray-200 transition-colors flex items-center">
+            <i class="fas fa-users mr-2"></i> User Management
+        </a>
+        <a href="{{ url_for('admin_audit_logs') }}" class="px-4 py-2 bg-secondary-600 text-white rounded-md hover:bg-secondary-700 transition-colors flex items-center">
+            <i class="fas fa-history mr-2"></i> Audit Logs
+        </a>
+    </div>
+</div>
+
+<!-- Search & Filter -->
+<div class="bg-white rounded-xl shadow-lg p-6 mb-8 animate-fadeIn">
+    <h2 class="text-xl font-semibold text-gray-800 mb-6">
+        <i class="fas fa-search text-secondary-600 mr-2"></i> Search Logs
+    </h2>
+    
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div>
+            <label for="action-search" class="block text-sm font-medium text-gray-700 mb-1">Search by Action</label>
+            <input type="text" id="action-search" class="block w-full rounded-md border-gray-300 shadow-sm focus:border-secondary-500 focus:ring focus:ring-secondary-500 focus:ring-opacity-50" placeholder="Enter action">
+        </div>
+        
+        <div>
+            <label for="details-search" class="block text-sm font-medium text-gray-700 mb-1">Search by Details</label>
+            <input type="text" id="details-search" class="block w-full rounded-md border-gray-300 shadow-sm focus:border-secondary-500 focus:ring focus:ring-secondary-500 focus:ring-opacity-50" placeholder="Enter details">
+        </div>
+        
+        <div>
+            <label for="date-search" class="block text-sm font-medium text-gray-700 mb-1">Filter by Date</label>
+            <input type="date" id="date-search" class="block w-full rounded-md border-gray-300 shadow-sm focus:border-secondary-500 focus:ring focus:ring-secondary-500 focus:ring-opacity-50">
+        </div>
+    </div>
+</div>
+
+<!-- Logs Table -->
+<div class="bg-white rounded-xl shadow-lg overflow-hidden animate-fadeIn">
+    <div class="px-6 py-4 bg-secondary-50 border-b">
+        <h2 class="text-lg font-semibold text-gray-800">
+            <i class="fas fa-list-alt text-secondary-600 mr-2"></i> System Activity Logs
+        </h2>
+        <p class="text-sm text-gray-500">Showing the most recent 50 activities</p>
+    </div>
+    
+    <div class="overflow-x-auto">
+        <table class="min-w-full divide-y divide-gray-200">
+            <thead class="bg-gray-50">
+                <tr>
+                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">ID</th>
+                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Action</th>
+                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Details</th>
+                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Timestamp</th>
+                </tr>
+            </thead>
+            <tbody class="bg-white divide-y divide-gray-200" id="logs-table-body">
+                {% for log in logs %}
+                    <tr class="hover:bg-gray-50 transition-colors log-row" 
+                        data-action="{{ log.action }}" 
+                        data-details="{{ log.details }}"
+                        data-date="{{ log.timestamp }}">
+                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{{ log.id }}</td>
+                        <td class="px-6 py-4 whitespace-nowrap">
+                            {% if 'Delete' in log.action %}
+                                <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">
+                                    {{ log.action }}
+                                </span>
+                            {% elif 'Ban' in log.action %}
+                                <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-orange-100 text-orange-800">
+                                    {{ log.action }}
+                                </span>
+                            {% elif 'Unban' in log.action %}
+                                <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
+                                    {{ log.action }}
+                                </span>
+                            {% else %}
+                                <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-blue-100 text-blue-800">
+                                    {{ log.action }}
+                                </span>
+                            {% endif %}
+                        </td>
+                        <td class="px-6 py-4 text-sm text-gray-500">{{ log.details }}</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ log.timestamp }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    
+    {% if not logs %}
+        <div class="p-8 text-center">
+            <p class="text-gray-500">No audit logs found.</p>
+        </div>
+    {% endif %}
+</div>
+
+<!-- Export Button -->
+<div class="mt-6 flex justify-end">
+    <button id="export-csv" class="px-4 py-2 bg-secondary-600 text-white rounded-md hover:bg-secondary-700 transition-colors flex items-center">
+        <i class="fas fa-download mr-2"></i> Export as CSV
+    </button>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Search & Filter functionality
+        const actionSearch = document.getElementById('action-search');
+        const detailsSearch = document.getElementById('details-search');
+        const dateSearch = document.getElementById('date-search');
+        const logRows = document.querySelectorAll('.log-row');
+        
+        function filterLogs() {
+            const actionQuery = actionSearch.value.toLowerCase();
+            const detailsQuery = detailsSearch.value.toLowerCase();
+            const dateQuery = dateSearch.value;
+            
+            logRows.forEach(row => {
+                const action = row.getAttribute('data-action').toLowerCase();
+                const details = row.getAttribute('data-details').toLowerCase();
+                const date = row.getAttribute('data-date').split(' ')[0]; // Get just the date part
+                
+                const actionMatch = action.includes(actionQuery);
+                const detailsMatch = details.includes(detailsQuery);
+                const dateMatch = !dateQuery || date === dateQuery;
+                
+                if (actionMatch && detailsMatch && dateMatch) {
+                    row.style.display = '';
+                } else {
+                    row.style.display = 'none';
+                }
+            });
+        }
+        
+        actionSearch.addEventListener('input', filterLogs);
+        detailsSearch.addEventListener('input', filterLogs);
+        dateSearch.addEventListener('change', filterLogs);
+        
+        // CSV Export functionality
+        const exportBtn = document.getElementById('export-csv');
+        
+        exportBtn.addEventListener('click', function() {
+            // Get visible rows only
+            const visibleRows = Array.from(logRows).filter(row => 
+                row.style.display !== 'none'
+            );
+            
+            // Create CSV content
+            let csvContent = 'ID,Action,Details,Timestamp\n';
+            visibleRows.forEach(row => {
+                const cells = row.querySelectorAll('td');
+                const id = cells[0].textContent.trim();
+                const action = row.getAttribute('data-action');
+                const details = row.getAttribute('data-details').replace(/,/g, ' '); // Remove commas
+                const timestamp = row.getAttribute('data-date');
+                
+                csvContent += `${id},"${action}","${details}","${timestamp}"\n`;
+            });
+            
+            // Create download link
+            const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+            const url = URL.createObjectURL(blob);
+            const link = document.createElement('a');
+            link.setAttribute('href', url);
+            link.setAttribute('download', 'audit_logs.csv');
+            link.style.visibility = 'hidden';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        });
+    });
+</script>
+{% endblock %}

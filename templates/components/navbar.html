@@ -1,0 +1,127 @@
+<nav class="bg-gradient-to-r from-secondary-700 to-secondary-900 text-white shadow-lg sticky top-0 z-50">
+    <div class="container mx-auto px-4">
+        <div class="flex justify-between h-16">
+            <div class="flex items-center">
+                <a href="{{ url_for('home') if session.logged_in else url_for('index') }}" class="flex items-center">
+                    <i class="fas fa-tools mr-2 text-2xl"></i>
+                    <span class="font-bold text-xl tracking-tight">FixMyCampus</span>
+                </a>
+            </div>
+            
+            <!-- Desktop Menu -->
+            <div class="hidden md:flex items-center space-x-4">
+                {% if session.logged_in %}
+                    <a href="{{ url_for('home') }}" class="px-3 py-2 rounded-md text-sm font-medium hover:bg-secondary-600 transition-colors">
+                        <i class="fas fa-home mr-1"></i> Home
+                    </a>
+                    <a href="{{ url_for('about_campus') }}" class="px-3 py-2 rounded-md text-sm font-medium hover:bg-secondary-600 transition-colors">
+                        <i class="fas fa-university mr-1"></i> Institute Info
+                    </a>
+                    <a href="{{ url_for('report_issue') }}" class="px-3 py-2 rounded-md text-sm font-medium hover:bg-secondary-600 transition-colors">
+                        <i class="fas fa-edit mr-1"></i> Report Issue
+                    </a>
+                    <a href="{{ url_for('my_issues') }}" class="px-3 py-2 rounded-md text-sm font-medium hover:bg-secondary-600 transition-colors">
+                        <i class="fas fa-list-alt mr-1"></i> My Issues
+                    </a>
+                    <a href="{{ url_for('issue_dashboard') }}" class="px-3 py-2 rounded-md text-sm font-medium hover:bg-secondary-600 transition-colors">
+                        <i class="fas fa-chart-bar mr-1"></i> Dashboard
+                    </a>
+                    
+                    <div class="relative ml-3 group">
+                        <button class="flex items-center px-3 py-2 rounded-md text-sm font-medium hover:bg-secondary-600 transition-colors">
+                            <i class="fas fa-user-circle mr-1"></i> {{ session.username }}
+                            <svg class="ml-1 h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                            </svg>
+                        </button>
+                        <div class="absolute right-0 mt-2 py-2 w-48 bg-white rounded-md shadow-xl z-10 hidden group-hover:block">
+                            <a href="{{ url_for('profile') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                                <i class="fas fa-id-card mr-2"></i> View Profile
+                            </a>
+                            <a href="{{ url_for('change_password') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                                <i class="fas fa-key mr-2"></i> Change Password
+                            </a>
+                            <a href="{{ url_for('help_support') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                                <i class="fas fa-question-circle mr-2"></i> Help & Support
+                            </a>
+                            <a href="{{ url_for('about') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                                <i class="fas fa-info-circle mr-2"></i> About
+                            </a>
+                            <div class="border-t border-gray-100 my-1"></div>
+                            <a href="{{ url_for('logout') }}" class="block px-4 py-2 text-sm text-red-500 hover:bg-gray-100">
+                                <i class="fas fa-sign-out-alt mr-2"></i> Logout
+                            </a>
+                        </div>
+                    </div>
+                {% else %}
+                    <a href="{{ url_for('login') }}" class="px-3 py-2 rounded-md text-sm font-medium hover:bg-secondary-600 transition-colors">
+                        <i class="fas fa-sign-in-alt mr-1"></i> Login
+                    </a>
+                    <a href="{{ url_for('signup') }}" class="px-3 py-2 rounded-md text-sm font-medium hover:bg-secondary-600 transition-colors">
+                        <i class="fas fa-user-plus mr-1"></i> Sign Up
+                    </a>
+                    <a href="{{ url_for('admin_login') }}" class="px-3 py-2 rounded-md text-sm font-medium hover:bg-secondary-600 transition-colors">
+                        <i class="fas fa-user-shield mr-1"></i> Admin
+                    </a>
+                {% endif %}
+            </div>
+            
+            <!-- Mobile menu button -->
+            <div class="flex items-center md:hidden">
+                <button id="mobile-menu-btn" class="text-white hover:text-gray-200 focus:outline-none">
+                    <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile menu, show/hide based on menu state -->
+    <div id="mobile-menu" class="md:hidden hidden">
+        <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-secondary-800">
+            {% if session.logged_in %}
+                <a href="{{ url_for('home') }}" class="block px-3 py-2 rounded-md text-base font-medium hover:bg-secondary-600 transition-colors">
+                    <i class="fas fa-home mr-2"></i> Home
+                </a>
+                <a href="{{ url_for('about_campus') }}" class="block px-3 py-2 rounded-md text-base font-medium hover:bg-secondary-600 transition-colors">
+                    <i class="fas fa-university mr-2"></i> Institute Info
+                </a>
+                <a href="{{ url_for('report_issue') }}" class="block px-3 py-2 rounded-md text-base font-medium hover:bg-secondary-600 transition-colors">
+                    <i class="fas fa-edit mr-2"></i> Report Issue
+                </a>
+                <a href="{{ url_for('my_issues') }}" class="block px-3 py-2 rounded-md text-base font-medium hover:bg-secondary-600 transition-colors">
+                    <i class="fas fa-list-alt mr-2"></i> My Issues
+                </a>
+                <a href="{{ url_for('issue_dashboard') }}" class="block px-3 py-2 rounded-md text-base font-medium hover:bg-secondary-600 transition-colors">
+                    <i class="fas fa-chart-bar mr-2"></i> Dashboard
+                </a>
+                <a href="{{ url_for('profile') }}" class="block px-3 py-2 rounded-md text-base font-medium hover:bg-secondary-600 transition-colors">
+                    <i class="fas fa-id-card mr-2"></i> View Profile
+                </a>
+                <a href="{{ url_for('change_password') }}" class="block px-3 py-2 rounded-md text-base font-medium hover:bg-secondary-600 transition-colors">
+                    <i class="fas fa-key mr-2"></i> Change Password
+                </a>
+                <a href="{{ url_for('help_support') }}" class="block px-3 py-2 rounded-md text-base font-medium hover:bg-secondary-600 transition-colors">
+                    <i class="fas fa-question-circle mr-2"></i> Help & Support
+                </a>
+                <a href="{{ url_for('about') }}" class="block px-3 py-2 rounded-md text-base font-medium hover:bg-secondary-600 transition-colors">
+                    <i class="fas fa-info-circle mr-2"></i> About
+                </a>
+                <a href="{{ url_for('logout') }}" class="block px-3 py-2 rounded-md text-base font-medium text-red-400 hover:bg-secondary-600 transition-colors">
+                    <i class="fas fa-sign-out-alt mr-2"></i> Logout
+                </a>
+            {% else %}
+                <a href="{{ url_for('login') }}" class="block px-3 py-2 rounded-md text-base font-medium hover:bg-secondary-600 transition-colors">
+                    <i class="fas fa-sign-in-alt mr-2"></i> Login
+                </a>
+                <a href="{{ url_for('signup') }}" class="block px-3 py-2 rounded-md text-base font-medium hover:bg-secondary-600 transition-colors">
+                    <i class="fas fa-user-plus mr-2"></i> Sign Up
+                </a>
+                <a href="{{ url_for('admin_login') }}" class="block px-3 py-2 rounded-md text-base font-medium hover:bg-secondary-600 transition-colors">
+                    <i class="fas fa-user-shield mr-2"></i> Admin
+                </a>
+            {% endif %}
+        </div>
+    </div>
+</nav>

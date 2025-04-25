@@ -1,0 +1,111 @@
+{% extends 'layouts/base.html' %}
+
+{% block title %}Sign Up - FixMyCampus{% endblock %}
+
+{% block content %}
+<div class="flex min-h-[80vh] items-center justify-center py-12">
+    <div class="w-full max-w-3xl">
+        <div class="bg-white rounded-lg overflow-hidden shadow-xl animate-fadeIn">
+            <div class="bg-gradient-to-r from-secondary-600 to-secondary-800 p-6">
+                <h2 class="text-center text-3xl font-extrabold text-white">
+                    <i class="fas fa-user-plus mr-2"></i> Create an Account
+                </h2>
+                <p class="mt-2 text-center text-white opacity-80">
+                    Join FixMyCampus to report and track campus issues
+                </p>
+            </div>
+            
+            <div class="p-6 space-y-6">
+                <form method="POST" action="{{ url_for('signup') }}">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label for="first_name" class="block text-sm font-medium text-gray-700">First Name</label>
+                            <div class="mt-1 relative rounded-md shadow-sm">
+                                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                    <i class="fas fa-user text-gray-400"></i>
+                                </div>
+                                <input type="text" name="first_name" id="first_name" class="focus:ring-secondary-500 focus:border-secondary-500 block w-full pl-10 sm:text-sm border-gray-300 rounded-md py-3" placeholder="Enter your first name" required>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <label for="last_name" class="block text-sm font-medium text-gray-700">Last Name</label>
+                            <div class="mt-1 relative rounded-md shadow-sm">
+                                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                    <i class="fas fa-user text-gray-400"></i>
+                                </div>
+                                <input type="text" name="last_name" id="last_name" class="focus:ring-secondary-500 focus:border-secondary-500 block w-full pl-10 sm:text-sm border-gray-300 rounded-md py-3" placeholder="Enter your last name" required>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
+                            <div class="mt-1 relative rounded-md shadow-sm">
+                                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                    <i class="fas fa-envelope text-gray-400"></i>
+                                </div>
+                                <input type="email" name="email" id="email" class="focus:ring-secondary-500 focus:border-secondary-500 block w-full pl-10 sm:text-sm border-gray-300 rounded-md py-3" placeholder="Enter your email" required>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
+                            <div class="mt-1 relative rounded-md shadow-sm">
+                                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                    <i class="fas fa-lock text-gray-400"></i>
+                                </div>
+                                <input type="password" name="password" id="password" class="focus:ring-secondary-500 focus:border-secondary-500 block w-full pl-10 sm:text-sm border-gray-300 rounded-md py-3" placeholder="Enter your password" required>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <label for="roll_no" class="block text-sm font-medium text-gray-700">Roll Number</label>
+                            <div class="mt-1 relative rounded-md shadow-sm">
+                                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                    <i class="fas fa-id-card text-gray-400"></i>
+                                </div>
+                                <input type="text" name="roll_no" id="roll_no" class="focus:ring-secondary-500 focus:border-secondary-500 block w-full pl-10 sm:text-sm border-gray-300 rounded-md py-3" placeholder="Enter your roll number" required>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <label for="mob_num" class="block text-sm font-medium text-gray-700">Mobile Number</label>
+                            <div class="mt-1 relative rounded-md shadow-sm">
+                                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                    <i class="fas fa-phone text-gray-400"></i>
+                                </div>
+                                <input type="text" name="mob_num" id="mob_num" class="focus:ring-secondary-500 focus:border-secondary-500 block w-full pl-10 sm:text-sm border-gray-300 rounded-md py-3" placeholder="Enter your mobile number" required>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <label for="gender" class="block text-sm font-medium text-gray-700">Gender</label>
+                            <div class="mt-1 relative rounded-md shadow-sm">
+                                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                    <i class="fas fa-venus-mars text-gray-400"></i>
+                                </div>
+                                <select name="gender" id="gender" class="focus:ring-secondary-500 focus:border-secondary-500 block w-full pl-10 sm:text-sm border-gray-300 rounded-md py-3" required>
+                                    <option value="">Select</option>
+                                    <option value="Male">Male</option>
+                                    <option value="Female">Female</option>
+                                    <option value="Other">Other</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-6 flex items-center justify-between">
+                        <button type="submit" class="inline-flex justify-center py-3 px-6 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-secondary-600 hover:bg-secondary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-secondary-500 transition-colors duration-200">
+                            <i class="fas fa-user-plus mr-2"></i> Sign Up
+                        </button>
+                        
+                        <a href="{{ url_for('login') }}" class="inline-flex justify-center py-3 px-6 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-secondary-500 transition-colors duration-200">
+                            <i class="fas fa-arrow-left mr-2"></i> Back to Login
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

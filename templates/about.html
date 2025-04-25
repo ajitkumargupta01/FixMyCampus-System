@@ -1,0 +1,161 @@
+{% extends 'layouts/base.html' %}
+
+{% block title %}About - FixMyCampus{% endblock %}
+
+{% block content %}
+<div class="bg-gradient-to-br from-secondary-600 to-secondary-800 rounded-2xl text-white shadow-2xl p-10 animate-fadeIn">
+    <h1 class="text-4xl font-bold text-center mb-6">About FixMyCampus</h1>
+    <p class="text-xl text-center max-w-4xl mx-auto opacity-90">
+        Your trusted platform for transparent campus issue reporting and resolution.
+    </p>
+</div>
+
+<div class="mt-12 grid grid-cols-1 lg:grid-cols-2 gap-10">
+    <div class="bg-white rounded-xl shadow-lg p-8 animate-fadeIn">
+        <div class="flex items-center justify-center w-16 h-16 mx-auto bg-secondary-100 text-secondary-600 rounded-full mb-6">
+            <i class="fas fa-rocket text-2xl"></i>
+        </div>
+        <h2 class="text-2xl font-bold text-gray-800 text-center mb-4">What is FixMyCampus?</h2>
+        <p class="text-gray-600 leading-relaxed">
+            FixMyCampus is a comprehensive platform designed to help students report infrastructure issues across campus.
+            From electricity and water problems to internet connectivity issues, our goal is to ensure every student
+            has a voice in maintaining and improving campus facilities.
+        </p>
+        <p class="text-gray-600 leading-relaxed mt-4">
+            We aim to create transparency in the issue resolution process, allowing students to track the status
+            of their reported problems from submission to resolution.
+        </p>
+    </div>
+    
+    <div class="bg-white rounded-xl shadow-lg p-8 animate-fadeIn">
+        <div class="flex items-center justify-center w-16 h-16 mx-auto bg-secondary-100 text-secondary-600 rounded-full mb-6">
+            <i class="fas fa-chart-line text-2xl"></i>
+        </div>
+        <h2 class="text-2xl font-bold text-gray-800 text-center mb-4">Why Use FixMyCampus?</h2>
+        <ul class="space-y-4 text-gray-600">
+            <li class="flex items-start">
+                <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
+                <span>Track your reported issues in real-time with status updates</span>
+            </li>
+            <li class="flex items-start">
+                <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
+                <span>Transparent communication between students and maintenance staff</span>
+            </li>
+            <li class="flex items-start">
+                <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
+                <span>Data-driven insights to improve campus infrastructure</span>
+            </li>
+            <li class="flex items-start">
+                <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
+                <span>Easy-to-use interface for reporting and monitoring issues</span>
+            </li>
+            <li class="flex items-start">
+                <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
+                <span>Secure user accounts with profile management</span>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<div class="mt-12 bg-white rounded-xl shadow-lg p-8 animate-fadeIn">
+    <h2 class="text-2xl font-bold text-gray-800 text-center mb-8">Categories We Cover</h2>
+    
+    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
+        <div class="flex flex-col items-center p-4 rounded-lg hover:bg-gray-50 transition-colors">
+            <div class="flex items-center justify-center w-16 h-16 bg-yellow-100 text-yellow-500 rounded-full mb-4">
+                <i class="fas fa-bolt text-2xl"></i>
+            </div>
+            <h3 class="font-semibold text-gray-800">Electricity</h3>
+        </div>
+        
+        <div class="flex flex-col items-center p-4 rounded-lg hover:bg-gray-50 transition-colors">
+            <div class="flex items-center justify-center w-16 h-16 bg-blue-100 text-blue-500 rounded-full mb-4">
+                <i class="fas fa-tint text-2xl"></i>
+            </div>
+            <h3 class="font-semibold text-gray-800">Water Supply</h3>
+        </div>
+        
+        <div class="flex flex-col items-center p-4 rounded-lg hover:bg-gray-50 transition-colors">
+            <div class="flex items-center justify-center w-16 h-16 bg-purple-100 text-purple-500 rounded-full mb-4">
+                <i class="fas fa-wifi text-2xl"></i>
+            </div>
+            <h3 class="font-semibold text-gray-800">Internet</h3>
+        </div>
+        
+        <div class="flex flex-col items-center p-4 rounded-lg hover:bg-gray-50 transition-colors">
+            <div class="flex items-center justify-center w-16 h-16 bg-red-100 text-red-500 rounded-full mb-4">
+                <i class="fas fa-chair text-2xl"></i>
+            </div>
+            <h3 class="font-semibold text-gray-800">Furniture</h3>
+        </div>
+        
+        <div class="flex flex-col items-center p-4 rounded-lg hover:bg-gray-50 transition-colors">
+            <div class="flex items-center justify-center w-16 h-16 bg-green-100 text-green-500 rounded-full mb-4">
+                <i class="fas fa-broom text-2xl"></i>
+            </div>
+            <h3 class="font-semibold text-gray-800">Cleanliness</h3>
+        </div>
+        
+        <div class="flex flex-col items-center p-4 rounded-lg hover:bg-gray-50 transition-colors">
+            <div class="flex items-center justify-center w-16 h-16 bg-orange-100 text-orange-500 rounded-full mb-4">
+                <i class="fas fa-bus text-2xl"></i>
+            </div>
+            <h3 class="font-semibold text-gray-800">Bus</h3>
+        </div>
+    </div>
+</div>
+
+<div class="mt-12 bg-white rounded-xl shadow-lg p-8 animate-fadeIn">
+    <h2 class="text-2xl font-bold text-gray-800 mb-8">Transparency & Trust</h2>
+    
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="bg-gray-50 p-6 rounded-lg">
+            <div class="flex items-center justify-center w-14 h-14 bg-secondary-100 text-secondary-600 rounded-full mb-4 mx-auto">
+                <i class="fas fa-fingerprint text-xl"></i>
+            </div>
+            <h3 class="text-lg font-semibold text-gray-800 text-center mb-2">Unique Tracking</h3>
+            <p class="text-gray-600 text-center">
+                Each report is given a unique ID and logged into our system for easy reference and tracking.
+            </p>
+        </div>
+        
+        <div class="bg-gray-50 p-6 rounded-lg">
+            <div class="flex items-center justify-center w-14 h-14 bg-secondary-100 text-secondary-600 rounded-full mb-4 mx-auto">
+                <i class="fas fa-chart-pie text-xl"></i>
+            </div>
+            <h3 class="text-lg font-semibold text-gray-800 text-center mb-2">Data Analytics</h3>
+            <p class="text-gray-600 text-center">
+                We use data analytics to identify recurring issues and improve campus infrastructure systematically.
+            </p>
+        </div>
+        
+        <div class="bg-gray-50 p-6 rounded-lg">
+            <div class="flex items-center justify-center w-14 h-14 bg-secondary-100 text-secondary-600 rounded-full mb-4 mx-auto">
+                <i class="fas fa-shield-alt text-xl"></i>
+            </div>
+            <h3 class="text-lg font-semibold text-gray-800 text-center mb-2">Accountability</h3>
+            <p class="text-gray-600 text-center">
+                Our system ensures accountability and transparency for every issue raised, from reporting to resolution.
+            </p>
+        </div>
+    </div>
+</div>
+
+<div class="mt-12 bg-gradient-to-br from-secondary-50 to-secondary-100 rounded-xl shadow-lg p-8 animate-fadeIn">
+    <div class="text-center">
+        <h2 class="text-2xl font-bold text-gray-800 mb-3">Together, We Improve Campus Life</h2>
+        <p class="text-gray-600 max-w-3xl mx-auto mb-8">
+            FixMyCampus is more than just a platform for reporting issues; it's a community-driven initiative to improve campus facilities and student life. Your voice matters, and together we can make a difference.
+        </p>
+        <a href="{{ url_for('report_issue') if session.logged_in else url_for('login') }}" class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-secondary-600 hover:bg-secondary-700 transition-colors">
+            <i class="fas fa-edit mr-2"></i> {{ 'Report an Issue' if session.logged_in else 'Sign In to Get Started' }}
+        </a>
+    </div>
+</div>
+
+<div class="mt-12 text-center mb-12">
+    <p class="text-gray-500">
+        © 2025 FixMyCampus | Meerut Institute of Technology
+    </p>
+</div>
+{% endblock %}

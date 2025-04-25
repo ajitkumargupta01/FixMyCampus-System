@@ -1,0 +1,111 @@
+/* Custom styles for FixMyCampus */
+
+/* Custom animations */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fadeIn {
+    animation: fadeIn 0.5s ease-out forwards;
+}
+
+/* Custom gradients */
+.hero-gradient {
+    background: linear-gradient(135deg, #6D28D9, #9333EA, #D946EF);
+}
+
+.campus-gradient {
+    background-image: linear-gradient(to right top, #14338e, #006fca, #00a2c2, #00cd7f, #a6eb12);
+}
+
+/* Card hover effect */
+.card-hover {
+    transition: all 0.3s ease;
+}
+
+.card-hover:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+}
+
+/* Glassmorphism effect */
+.glassmorphism {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+/* Status colors */
+.status-pending {
+    color: #f59e0b;
+}
+
+.status-progress {
+    color: #3b82f6;
+}
+
+.status-resolved {
+    color: #10b981;
+}
+
+/* Dashboard metrics */
+.metric-card {
+    transition: all 0.3s ease;
+    border-top: 4px solid transparent;
+}
+
+.metric-card:hover {
+    transform: translateY(-5px);
+}
+
+.metric-primary {
+    border-color: #8b5cf6;
+}
+
+.metric-warning {
+    border-color: #f59e0b;
+}
+
+.metric-info {
+    border-color: #3b82f6;
+}
+
+.metric-success {
+    border-color: #10b981;
+}
+
+/* Issue item transitions */
+.issue-item {
+    transition: all 0.3s ease;
+}
+
+.issue-item:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+/* Form focus effects */
+input:focus, select:focus, textarea:focus {
+    box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.3);
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #8b5cf6;
+    border-radius: 8px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #7c3aed;
+}
