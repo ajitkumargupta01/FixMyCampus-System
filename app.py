@@ -1,6 +1,12 @@
 from flask import Flask, render_template, request, redirect, url_for, flash, session, jsonify
 from flask_mysqldb import MySQL
 import datetime
+import pandas as pd
+import plotly.express as px
+import plotly.utils
+import json
+import os
+from werkzeug.security import generate_password_hash, check_password_hash
 
 app = Flask(__name__)
 app.secret_key = 'fixmycampus_secret_key'
@@ -466,4 +472,4 @@ def admin_logout():
     return redirect(url_for('admin_login'))
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host="0.0.0.0",port=5000,debug=True)

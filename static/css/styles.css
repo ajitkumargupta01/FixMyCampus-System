@@ -59,7 +59,22 @@
 .metric-card:hover {
     transform: translateY(-5px);
 }
+.rishav
+{
+    height: 50%;
+    border: 1px solid black;
+}
+.vikash{
+    border: 1px solid black;
+}
 
+.ajit{
+    border: 1px solid black;
+}
+.anushka{
+    border: 1px solid black;
+    height: 70%;
+}
 .metric-primary {
     border-color: #8b5cf6;
 }
@@ -109,3 +124,4 @@ input:focus, select:focus, textarea:focus {
 ::-webkit-scrollbar-thumb:hover {
     background: #7c3aed;
 }
+
