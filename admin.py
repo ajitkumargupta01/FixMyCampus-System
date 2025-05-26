@@ -7,10 +7,16 @@ app = Flask(__name__)
 app.secret_key = 'fixmycampus_admin_secret_key'
 
 # MySQL Configuration
-app.config['MYSQL_HOST'] = 'sql12.freesqldatabase.com'
-app.config['MYSQL_USER'] = 'sql12774989'
-app.config['MYSQL_PASSWORD'] = 'acxEkHFzcu'
-app.config['MYSQL_DB'] = 'sql12774989'
+# app.config['MYSQL_HOST'] = 'sql12.freesqldatabase.com'
+# app.config['MYSQL_USER'] = 'sql12774989'
+# app.config['MYSQL_PASSWORD'] = 'acxEkHFzcu'
+# app.config['MYSQL_DB'] = 'sql12774989'
+# app.config['MYSQL_CURSORCLASS'] = 'DictCursor'
+
+app.config['MYSQL_HOST'] = 'localhost'
+app.config['MYSQL_USER'] = 'root'
+app.config['MYSQL_PASSWORD'] = 'Ajit@1234'
+app.config['MYSQL_DB'] = 'fmp'
 app.config['MYSQL_CURSORCLASS'] = 'DictCursor'
 
 mysql = MySQL(app)
